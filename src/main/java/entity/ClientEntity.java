@@ -37,7 +37,7 @@ public class ClientEntity {
     @Column(name = "added", nullable = false)
     private LocalDate added;
 
-    @OneToMany(mappedBy = "clientid")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
     private List<AddressEntity> addresses = new ArrayList<>();
 
     @Override

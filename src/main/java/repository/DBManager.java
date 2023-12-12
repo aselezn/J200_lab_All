@@ -1,5 +1,6 @@
 package repository;
 
+import entity.AddressEntity;
 import entity.ClientEntity;
 import jakarta.ejb.Singleton;
 import jakarta.persistence.EntityManager;
@@ -22,14 +23,24 @@ public class DBManager {
         return entityManager.find(ClientEntity.class, id);
     }
 
-    public void remove(Integer id){
+    public AddressEntity findByAddressId(Integer id){
+
+        return entityManager.find(AddressEntity.class, id);
+    }
+
+    public void removeClient(Integer id){
         ClientEntity client = findByClientId(id);
         entityManager.remove(client);
     }
 
-    public ClientEntity create(ClientEntity client){
+    public void removeAddress(Integer id){
+        AddressEntity address = findByAddressId(id);
+        entityManager.remove(address);
+    }
 
-        return entityManager.merge(client);
+    public void create(ClientEntity client){
+
+        entityManager.merge(client);
     }
 
     public ClientEntity update(ClientEntity client){

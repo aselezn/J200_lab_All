@@ -45,7 +45,7 @@ public class ViewListServlet extends HttpServlet {
 
         out.println("<br>");
         out.println("<br>");
-        out.println("<a href=\"create\" class=\"button\" id=\"back\">Создать нового клиента</a>");
+        out.println("<a href=\"create\" class=\"button\" id=\"create\">Создать клиента</a>");
         out.println("<br>");
         out.println("<br>");
 
@@ -62,26 +62,32 @@ public class ViewListServlet extends HttpServlet {
 
         out.println("<table border=\"1px solid black\">");
         out.println("<tr>");
-        out.println("<td>ID</td>");
+        out.println("<td>Client ID</td>");
         out.println("<td>ФИО</td>");
         out.println("<td>Тип</td>");
         out.println("<td>Дата добавления</td>");
+        out.println("<td>Address ID</td>");
         out.println("<td>IP</td>");
         out.println("<td>MAC</td>");
         out.println("<td>Модель</td>");
         out.println("<td>Место нахождения</td>");
         out.println("<tr>");
         clients.forEach(client -> {
-            out.println("<td>" + client.getId() + "</td>");
+            out.println("<td>" + client.getClientId() + "</td>");
             out.println("<td>" + client.getClientName() + "</td>");
             out.println("<td>" + client.getType() + "</td>");
             out.println("<td>" + client.getAdded() + "</td>");
+            out.println("<td>" + Objects.toString(client.getAddressId(), "") + "</td>");
             out.println("<td>" + Objects.toString(client.getIp(), "") + "</td>");
             out.println("<td>" + Objects.toString(client.getMac(), "") + "</td>");
             out.println("<td>" + Objects.toString(client.getModel(), "") + "</td>");
             out.println("<td>" + Objects.toString(client.getClientAddress(), "") + "</td>");
-            out.println("<td><a href=\"http://localhost:8080/J200_lab-1.0-SNAPSHOT/update?client-id=" + client.getId() + "\">update</a></td>");
-            out.println("<td><a href=\"http://localhost:8080/J200_lab-1.0-SNAPSHOT/delete?client-id=" + client.getId() + "\">remove</a></td>");
+            out.println("<td><a href=\"http://localhost:8080/J200_lab-1.0-SNAPSHOT/update?client-id=" + client.getClientId() + "\">update</a></td>");
+            out.println("<td><a href=\"http://localhost:8080/J200_lab-1.0-SNAPSHOT/delete?client-id=" + client.getClientId() + "\">remove all</a></td>");
+            out.println("<td><a href=\"http://localhost:8080/J200_lab-1.0-SNAPSHOT/delete?address-id=" + client.getAddressId() + "\">remove address</a></td>");
+//            out.println("<td><button type=\"button\" class=\"btn btn-primary\" id=\"update\" href=\"http://localhost:8080/J200_lab-1.0-SNAPSHOT/update?client-id=" + client.getClientId() + "\">Обновить</button></td>");
+//            out.println("<td><button type=\"button\" class=\"btn btn-primary\" id=\"delete-all\" href=\"http://localhost:8080/J200_lab-1.0-SNAPSHOT/update?client-id=" + client.getClientId() + "\">Удалить все</button></td>");
+//            out.println("<td><button type=\"button\" class=\"btn btn-primary\" id=\"delete\" href=\"http://localhost:8080/J200_lab-1.0-SNAPSHOT/delete?address-id=" + client.getAddressId() + "\">Удалить адрес</button></td>");
             out.println("</tr>");
         });
         out.println("</table>");

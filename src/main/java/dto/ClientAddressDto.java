@@ -11,10 +11,11 @@ import java.util.Objects;
 @Getter
 @Setter
 public class ClientAddressDto {
-    private Integer id;
+    private Integer clientId;
     private String clientName;
     private String type;
     private LocalDate added;
+    private Integer addressId;
     private String ip;
     private String mac;
     private String model;
@@ -22,11 +23,12 @@ public class ClientAddressDto {
 
     public ClientAddressDto(ClientEntity client, AddressEntity address){
 
-        id = client.getId();
+        clientId = client.getId();
         clientName = client.getClientName();
         type = client.getType();
         added = client.getAdded();
         if(address!=null){
+            addressId = address.getId();
             ip = address.getIp();
             mac = address.getMac();
             model = address.getModel();
@@ -39,11 +41,11 @@ public class ClientAddressDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ClientAddressDto that = (ClientAddressDto) o;
-        return Objects.equals(id, that.id);
+        return Objects.equals(clientId, that.clientId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(clientId);
     }
 }

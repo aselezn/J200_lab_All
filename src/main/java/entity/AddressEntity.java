@@ -43,7 +43,7 @@ public class AddressEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "clientid", nullable = false)
-    private ClientEntity clientid;
+    private ClientEntity client;
 
     @Override
     public boolean equals(Object o) {
