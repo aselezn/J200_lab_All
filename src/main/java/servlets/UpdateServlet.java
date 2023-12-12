@@ -37,7 +37,7 @@ public class UpdateServlet extends HttpServlet {
         request.setAttribute("client", client);
         request.setAttribute("address", address);
 
-        request.getRequestDispatcher("pages/update-form.jsp").forward(request, response);
+        request.getRequestDispatcher("pages/update.jsp").forward(request, response);
 
     }
 
@@ -64,7 +64,7 @@ public class UpdateServlet extends HttpServlet {
 
         } catch (ValidationUtils.ValidationException e) {
             request.setAttribute("errorReason", e.getMessage());
-            request.getRequestDispatcher("pages/view-list.jsp").forward(request, response);
+            request.getRequestDispatcher("pages/update.jsp").forward(request, response);
         }
 
 
