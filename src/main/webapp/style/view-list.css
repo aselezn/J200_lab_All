@@ -1,0 +1,139 @@
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-form label {
+    font-size: 14px;
+    color: #305070;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.filter-form input[type="text"],
+.filter-form select {
+    flex: 1; /* Элементы займут все доступное пространство */
+    margin-right: 10px; /* Добавьте небольшой отступ справа */
+}
+
+
+.filter-form button {
+    font-weight: bold;
+    font-size: 14px;
+    height: 45px;
+    background: #247FFF;
+    border: none;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 45px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.filter-form button:hover {
+    background-color: #438345;
+}
+
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0px 6px 50px rgba(217, 229, 255, 0.7);
+    border-radius: 20px;
+    text-align: left;
+}
+
+table th, table td {
+    border: 1px solid #E9F2FF;
+    padding: 8px;
+    font-size: 14px;
+}
+
+table th {
+    background-color: #F1F5FE;
+    color: #305070;
+}
+
+
+table tr:nth-child(even) {
+    background-color: #F1F5FE;
+}
+
+table tr:hover {
+    background-color: #C1D9FD;
+}
+
+.menu-toggle {
+    display: none;
+}
+.action-button {
+    cursor: pointer;
+}
+.action-menu {
+    display: none;
+    position: absolute;
+}
+.menu-toggle:checked + .action-button + .action-menu {
+    display: block;
+}
+
+.action-menu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9; /* Цвет фона для меню */
+    min-width: 160px; /* Минимальная ширина меню */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Тень для всплывающего эффекта */
+    z-index: 1; /* Убедитесь, что меню отображается поверх других элементов */
+}
+
+.action-menu a {
+    color: black; /* Цвет текста для ссылок */
+    padding: 12px 16px; /* Отступы внутри каждой ссылки */
+    text-decoration: none; /* Убрать подчеркивание текста */
+    display: block; /* Расположение ссылок в столбец */
+}
+
+.action-menu a:hover {
+    background-color: #f1f1f1; /* Цвет фона для ссылок при наведении */
+}
+
+.menu-button,
+.button,
+.action-button{
+    display: block;
+    text-align: center;
+    margin: 5px 0;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #247FFF;
+    border: none;
+    border-radius: 5px;
+}
+
+#search {
+    width: auto;
+    color: #fff;
+    margin: 5px 0;
+    padding: 5px 10px;
+    text-decoration: none;
+    background-color: #247FFF;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+}
+
+.button#create {
+    width: auto;
+    display: inline-block;
+}
+

@@ -43,8 +43,12 @@ public class DBManager {
         entityManager.merge(client);
     }
 
-    public ClientEntity update(ClientEntity client){
-
-        return entityManager.merge(client);
+    public void update(ClientEntity client){
+        entityManager.merge(client);
     }
+
+    public void update(AddressEntity address){
+        entityManager.merge(address);
+    }
+
 }

@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import utils.ValidationUtils;
 
 import java.io.IOException;
 
@@ -26,14 +27,24 @@ public class CreateServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        String clientName = request.getParameter("clientName");
-        String clientType = request.getParameter("clientType");
-        String ip = request.getParameter("ip");
-        String mac = request.getParameter("mac");
-        String address = request.getParameter("address");
+        try {
+            String clientName = request.getParameter("clientName");
+            String clientType = request.getParameter("clientType");
+            String ip = request.getParameter("ip");
+            String mac = request.getParameter("mac");
+            String model = request.getParameter("model");
+            String address = request.getParameter("address");
 
+            updateBean.validateClient(clientName, clientType);
+            updateBean.validateAddress(ip, mac, model, address);
 
-        updateBean.createNewClient(request, response, clientName, clientType, ip, mac, address);
-        response.sendRedirect("view-list");
+            updateBean.createNewClient(clientName, clientType, ip, model, mac, address);
+            response.sendRedirect("view-list");
+
+        } catch (ValidationUtils.ValidationException e) {
+            request.setAttribute("errorReason", e.getMessage());
+            request.getRequestDispatcher("pages/create.jsp").forward(request, response);
+        }
+
     }
 }

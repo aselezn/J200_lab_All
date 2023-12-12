@@ -1,7 +1,12 @@
 package security;
 
 import jakarta.ejb.EJB;
-import jakarta.servlet.*;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +24,7 @@ public class AuthServlet extends HttpServlet implements Filter {
     @EJB
     private AuthBean authBean;
 
-    public void getPages(String filepath, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void getPages(String filepath, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServletException {
         RequestDispatcher dispatcher = request.getRequestDispatcher(filepath);
         dispatcher.forward(request, response);
     };

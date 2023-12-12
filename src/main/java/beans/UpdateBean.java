@@ -4,14 +4,10 @@ import entity.AddressEntity;
 import entity.ClientEntity;
 import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import repository.DBManager;
-import validators.AddressValidator;
-import validators.ClientValidator;
+import utils.ValidationUtils;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
@@ -20,43 +16,100 @@ public class UpdateBean {
     @EJB
     private DBManager dbManager;
 
-    public void deleteClient(Integer id) {
-        dbManager.removeClient(id);
+    private static final String IP_REGEX = "^((25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)$";
+    private static final String MAC_REGEX = "^([0-9A-Fa-f]{1,2}[:-]){5}([0-9A-Fa-f]{1,2})$";
+
+    public void validateClient(String clientName, String clientType) throws ValidationUtils.ValidationException {
+        ValidationUtils.validateNotEmpty(clientName, "Имя клиента");
+        ValidationUtils.validateLength(clientName, 100, "Имя клиента");
+        ValidationUtils.validateWithRegex(clientName, "[а-яА-ЯёЁ\\- ,.]+", "Имя клиента может содержать только русские буквы и символы [- , .]");
+        ValidationUtils.validateNotEmpty(clientType, "Тип клиента");
+        if (!clientType.equals("Юридическое лицо") && !clientType.equals("Физическое лицо")) {
+            throw new ValidationUtils.ValidationException("Тип клиента имеет недопустимое значение");
+        }
     }
 
-    public void deleteAddress(Integer id) {
-        dbManager.removeAddress(id);
+    public void validateAddress(String ipAddress,
+                                String macAddress,
+                                String model,
+                                String address) throws ValidationUtils.ValidationException {
+        ValidationUtils.validateNotEmpty(ipAddress, "IP-адрес");
+        ValidationUtils.validateWithRegex(ipAddress, IP_REGEX, "Недопустимый формат IP-адреса");
+        ValidationUtils.validateNotEmpty(macAddress, "MAC-адрес");
+        ValidationUtils.validateWithRegex(macAddress, MAC_REGEX, "Недопустимый формат MAC-адреса");
+        ValidationUtils.validateNotEmpty(model, "Модель устройства");
+        ValidationUtils.validateLength(model, 100, "Модель устройства");
+        ValidationUtils.validateNotEmpty(address, "Адрес");
+        ValidationUtils.validateLength(address, 200, "Адрес");
+    }
+
+    public ClientEntity findByClientId(Integer id) {
+        return dbManager.findByClientId(id);
+    }
+    public AddressEntity findByAddressId(Integer id) {
+        return dbManager.findByAddressId(id);
+    }
+
+    public void deleteClient(String id) {
+        dbManager.removeClient(Integer.parseInt(id));
+    }
+
+    public void deleteAddress(String id) {
+        dbManager.removeAddress(Integer.parseInt(id));
+    }
+
+    public void updateClient(String clientId,
+                             String clientName,
+                             String clientType,
+                             String addressId,
+                             String ip,
+                             String mac,
+                             String model,
+                             String address) {
+
+        ClientEntity client = dbManager.findByClientId(Integer.parseInt(clientId));
+        if (client != null) {
+            client.setClientName(clientName);
+            client.setType(clientType);
+            dbManager.update(client);
+        }
+
+        AddressEntity addressEntity = dbManager.findByAddressId(Integer.parseInt(addressId));
+        if (addressEntity != null) {
+            addressEntity.setIp(ip);
+            addressEntity.setMac(mac);
+            addressEntity.setModel(model);
+            addressEntity.setAddress(address);
+            dbManager.update(addressEntity);
+        }
+
     }
 
     public void createNewClient(
-            HttpServletRequest request,
-            HttpServletResponse response,
             String clientName,
             String clientType,
             String ip,
             String mac,
+            String model,
             String address
-    ) throws ServletException, IOException {
-        boolean validateClientResult = ClientValidator.validate(request, response, clientName, clientType);
-        boolean validateAddressResult = AddressValidator.validate(request, response, ip, mac, address);
+    ) {
 
+        ClientEntity client = new ClientEntity();
+        client.setClientName(clientName);
+        client.setType(clientType);
 
-        if (validateClientResult && validateAddressResult) {
+        AddressEntity addressEntity = new AddressEntity();
+        addressEntity.setIp(ip);
+        addressEntity.setMac(mac);
+        addressEntity.setModel(model);
+        addressEntity.setAddress(address);
+        addressEntity.setClient(client);
 
-            ClientEntity client = new ClientEntity();
-            client.setClientName(clientName);
-            client.setType(clientType);
+        List<AddressEntity> addresses = new ArrayList<>();
+        addresses.add(addressEntity);
+        client.setAddresses(addresses);
 
-            AddressEntity addressEntity = new AddressEntity();
-            addressEntity.setIp(ip);
-            addressEntity.setMac(mac);
-            addressEntity.setClient(client);
-
-            client.setAddresses(List.of(addressEntity));
-
-            dbManager.create(client);
-            response.sendRedirect("view-list");
-        }
+        dbManager.create(client);
 
     }
 }

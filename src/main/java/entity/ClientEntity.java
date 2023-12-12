@@ -1,10 +1,29 @@
 package entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 
 @Getter
 @Setter
@@ -32,12 +51,11 @@ public class ClientEntity {
     @Column(name = "type", nullable = false, length = 20)
     private String type;
 
-    @NonNull
     @Basic(optional = false)
-    @Column(name = "added", nullable = false)
+    @Column(name = "added", nullable = false, insertable = false)
     private LocalDate added;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<AddressEntity> addresses = new ArrayList<>();
 
     @Override

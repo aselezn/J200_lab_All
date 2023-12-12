@@ -1,6 +1,5 @@
 package dto;
 
-import entity.AddressEntity;
 import entity.ClientEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

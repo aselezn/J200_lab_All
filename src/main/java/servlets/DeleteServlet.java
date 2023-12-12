@@ -22,10 +22,10 @@ public class DeleteServlet extends HttpServlet {
         String addressId = request.getParameter("address-id");
 
         if(clientId!=null && !clientId.isEmpty()) {
-            updateBean.deleteClient(Integer.parseInt(clientId));
+            updateBean.deleteClient(clientId);
         }
         if(addressId!=null && !addressId.isEmpty()) {
-            updateBean.deleteAddress(Integer.parseInt(addressId));
+            updateBean.deleteAddress(addressId);
         }
         request.getRequestDispatcher("view-list").forward(request, response);
     }
