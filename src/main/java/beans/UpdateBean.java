@@ -85,6 +85,28 @@ public class UpdateBean {
 
     }
 
+
+    public void addNewAddress(
+            String clientId,
+            String ip,
+            String mac,
+            String model,
+            String address
+    ) {
+
+        ClientEntity client = dbManager.findByClientId(Integer.parseInt(clientId));
+        if (client != null) {
+            AddressEntity addressEntity = new AddressEntity();
+            addressEntity.setIp(ip);
+            addressEntity.setMac(mac);
+            addressEntity.setModel(model);
+            addressEntity.setAddress(address);
+            addressEntity.setClient(client);
+            dbManager.create(addressEntity);
+        }
+
+    }
+
     public void createNewClient(
             String clientName,
             String clientType,

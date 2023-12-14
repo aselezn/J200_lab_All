@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create client</title>
+    <title>Регистрация клиента</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/create_form.css">
 </head>
 <body>

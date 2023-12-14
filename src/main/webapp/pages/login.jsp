@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login Page</title>
+    <title>Авторизация</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/login_form.css">
 </head>
 <body>

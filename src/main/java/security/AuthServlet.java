@@ -36,6 +36,7 @@ public class AuthServlet extends HttpServlet implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
+        //вычисляется путь запроса, относительно контекста приложения
         String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 
         if (path.startsWith("/style/")) {
@@ -50,7 +51,7 @@ public class AuthServlet extends HttpServlet implements Filter {
         }
 
 
-        HttpSession session = httpRequest.getSession(false);
+        HttpSession session = httpRequest.getSession(false); //не создаем новую сессиию, если ее нет
         if (session != null) {
             String loginAttribute = (String) session.getAttribute("username");
             String savedSessionId = Objects.toString(authBean.getSessionId(loginAttribute), "");

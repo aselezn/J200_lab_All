@@ -38,11 +38,12 @@ public class CreateServlet extends HttpServlet {
             updateBean.validateClient(clientName, clientType);
             updateBean.validateAddress(ip, mac, model, address);
 
-            updateBean.createNewClient(clientName, clientType, ip, model, mac, address);
+            updateBean.createNewClient(clientName, clientType, ip, mac, model, address);
             response.sendRedirect("view-list");
 
         } catch (ValidationUtils.ValidationException e) {
             request.setAttribute("errorReason", e.getMessage());
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             request.getRequestDispatcher("pages/create.jsp").forward(request, response);
         }
 

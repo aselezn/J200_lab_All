@@ -26,18 +26,20 @@ public class UpdateServlet extends HttpServlet {
         String addressId = request.getParameter("address-id");
 
         ClientEntity client = null;
+        AddressEntity addressEntity = null;
+
         if (clientId != null && !clientId.isEmpty()) {
             client = updateBean.findByClientId(Integer.parseInt(clientId));
-        }
-        AddressEntity address = null;
-        if (addressId != null && !addressId.isEmpty()) {
-            address = updateBean.findByAddressId(Integer.parseInt(addressId));
-        }
+            request.setAttribute("client", client);
 
-        request.setAttribute("client", client);
-        request.setAttribute("address", address);
-
-        request.getRequestDispatcher("pages/update.jsp").forward(request, response);
+            if (addressId != null && !addressId.isEmpty()) {
+                addressEntity = updateBean.findByAddressId(Integer.parseInt(addressId));
+                request.setAttribute("addressEntity", addressEntity);
+                request.getRequestDispatcher("pages/update.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("pages/add-address.jsp").forward(request, response);
+            }
+        }
 
     }
 
@@ -46,25 +48,49 @@ public class UpdateServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
+        boolean isUpdatingClientAndAddress = false;
+        String clientId = request.getParameter("client-id");
+        String addressId = request.getParameter("address-id");
+        String clientName = request.getParameter("clientName");
+        String clientType = request.getParameter("clientType");
+        String ip = request.getParameter("ip");
+        String mac = request.getParameter("mac");
+        String model = request.getParameter("model");
+        String address = request.getParameter("address");
+
         try {
-            String clientId = request.getParameter("client-id");
-            String addressId = request.getParameter("address-id");
-            String clientName = request.getParameter("clientName");
-            String clientType = request.getParameter("clientType");
-            String ip = request.getParameter("ip");
-            String mac = request.getParameter("mac");
-            String model = request.getParameter("model");
-            String address = request.getParameter("address");
-
-            updateBean.validateClient(clientName, clientType);
-            updateBean.validateAddress(ip, mac, model, address);
-
-            updateBean.updateClient(clientId, clientName, clientType, addressId, ip, mac, model, address);
+            if (addressId != null && !addressId.isEmpty()) {
+                isUpdatingClientAndAddress = true;
+                updateBean.validateClient(clientName, clientType);
+                updateBean.validateAddress(ip, mac, model, address);
+                updateBean.updateClient(clientId, clientName, clientType, addressId, ip, mac, model, address);
+            } else {
+                updateBean.validateAddress(ip, mac, model, address);
+                updateBean.addNewAddress(clientId, ip, mac, model, address);
+            }
             response.sendRedirect("view-list");
 
         } catch (ValidationUtils.ValidationException e) {
             request.setAttribute("errorReason", e.getMessage());
-            request.getRequestDispatcher("pages/update.jsp").forward(request, response);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+
+            // сохраняем введенные данные
+            request.setAttribute("clientName", clientName);
+            request.setAttribute("clientType", clientType);
+            request.setAttribute("ip", ip);
+            request.setAttribute("mac", mac);
+            request.setAttribute("model", model);
+            request.setAttribute("address", address);
+
+            request.setAttribute("client-id", clientId);
+            request.setAttribute("address-id", addressId);
+
+            // Возвращаемся на соответствующую страницу
+            if (isUpdatingClientAndAddress) {
+                request.getRequestDispatcher("pages/update.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("pages/add-address.jsp").forward(request, response);
+            }
         }
 
 

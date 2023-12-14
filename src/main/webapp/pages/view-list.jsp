@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>View client list</title>
+    <title>Главная</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style/view-list.css">
 </head>
 <body>
@@ -59,8 +59,8 @@
                 <label for="menuToggle${client.clientId}" class="action-button">Выберете действие</label>
                 <div class="action-menu">
                     <a href="update?client-id=${client.clientId}&address-id=${client.addressId}" class="menu-button">Обновить</a>
-                    <a href="update?client-id=${client.clientId}" class="menu-button">Добавить адресс</a>
-                    <a href="delete?address-id=${client.addressId}" class="menu-button">Удалить адресс</a>
+                    <a href="update?client-id=${client.clientId}" class="menu-button">Добавить адрес</a>
+                    <a href="delete?address-id=${client.addressId}" class="menu-button">Удалить</a>
                     <a href="delete?client-id=${client.clientId}" class="menu-button">Удалить все</a>
                 </div>
             </td>
