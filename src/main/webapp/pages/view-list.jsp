@@ -56,7 +56,7 @@
             <td>${client.clientAddress}</td>
             <td>
                 <input type="checkbox" id="menuToggle${client.clientId}_${client.addressId}" class="menu-toggle">
-                <label for="menuToggle${client.clientId}" class="action-button">Выберете действие</label>
+                <label for="menuToggle${client.clientId}_${client.addressId}" class="action-button">Выберете действие</label>
                 <div class="action-menu">
                     <a href="update?client-id=${client.clientId}&address-id=${client.addressId}" class="menu-button">Обновить</a>
                     <a href="update?client-id=${client.clientId}" class="menu-button">Добавить адрес</a>
