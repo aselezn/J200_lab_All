@@ -17,7 +17,7 @@
             <div class="form-fields">
                 <!-- Скрытые поля для передачи ID -->
                 <input type="hidden" name="client-id" value="${not empty requestScope['client-id'] ? requestScope['client-id'] : not empty client ? client.id : ''}">
-                <input type="hidden" name="address-id" value="${not empty requestScope['address-id'] ? requestScope['address-id'] : not empty address ? address.id : ''}">
+                <input type="hidden" name="address-id" value="${not empty requestScope['address-id'] ? requestScope['address-id'] : not empty addressEntity ? addressEntity.id : ''}">
 
                 <div class="form-field">
                     <input type="text" name="clientName" placeholder="ФИО" value="${not empty requestScope.clientName ? requestScope.clientName : not empty client ? client.clientName : ''}">

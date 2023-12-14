@@ -8,9 +8,9 @@ public class ValidationUtils {
         }
     }
 
-    public static void validateNotEmpty(String field, String fieldName) throws ValidationException {
+    public static void validateNotEmpty(String field) throws ValidationException {
         if (field == null || field.trim().isEmpty()) {
-            throw new ValidationException(fieldName + " не может быть пустым");
+            throw new ValidationException("Поля не могут быть пустыми");
         }
     }
 

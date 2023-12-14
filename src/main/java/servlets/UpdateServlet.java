@@ -59,7 +59,7 @@ public class UpdateServlet extends HttpServlet {
         String address = request.getParameter("address");
 
         try {
-            if (addressId != null && !addressId.isEmpty()) {
+            if (clientId != null && !clientId.isEmpty() && addressId != null && !addressId.isEmpty()) {
                 isUpdatingClientAndAddress = true;
                 updateBean.validateClient(clientName, clientType);
                 updateBean.validateAddress(ip, mac, model, address);
@@ -85,14 +85,13 @@ public class UpdateServlet extends HttpServlet {
             request.setAttribute("client-id", clientId);
             request.setAttribute("address-id", addressId);
 
-            // Возвращаемся на соответствующую страницу
+            // возвращаемся на соответствующую страницу
             if (isUpdatingClientAndAddress) {
                 request.getRequestDispatcher("pages/update.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("pages/add-address.jsp").forward(request, response);
             }
         }
-
 
     }
 }

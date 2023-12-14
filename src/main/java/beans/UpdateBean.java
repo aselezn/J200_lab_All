@@ -20,10 +20,10 @@ public class UpdateBean {
     private static final String MAC_REGEX = "^([0-9A-Fa-f]{1,2}[:-]){5}([0-9A-Fa-f]{1,2})$";
 
     public void validateClient(String clientName, String clientType) throws ValidationUtils.ValidationException {
-        ValidationUtils.validateNotEmpty(clientName, "Имя клиента");
+        ValidationUtils.validateNotEmpty(clientName);
         ValidationUtils.validateLength(clientName, 100, "Имя клиента");
         ValidationUtils.validateWithRegex(clientName, "[а-яА-ЯёЁ\\- ,.]+", "Имя клиента может содержать только русские буквы и символы [- , .]");
-        ValidationUtils.validateNotEmpty(clientType, "Тип клиента");
+        ValidationUtils.validateNotEmpty(clientType);
         if (!clientType.equals("Юридическое лицо") && !clientType.equals("Физическое лицо")) {
             throw new ValidationUtils.ValidationException("Тип клиента имеет недопустимое значение");
         }
@@ -33,13 +33,13 @@ public class UpdateBean {
                                 String macAddress,
                                 String model,
                                 String address) throws ValidationUtils.ValidationException {
-        ValidationUtils.validateNotEmpty(ipAddress, "IP-адрес");
+        ValidationUtils.validateNotEmpty(ipAddress);
         ValidationUtils.validateWithRegex(ipAddress, IP_REGEX, "Недопустимый формат IP-адреса");
-        ValidationUtils.validateNotEmpty(macAddress, "MAC-адрес");
+        ValidationUtils.validateNotEmpty(macAddress);
         ValidationUtils.validateWithRegex(macAddress, MAC_REGEX, "Недопустимый формат MAC-адреса");
-        ValidationUtils.validateNotEmpty(model, "Модель устройства");
+        ValidationUtils.validateNotEmpty(model);
         ValidationUtils.validateLength(model, 100, "Модель устройства");
-        ValidationUtils.validateNotEmpty(address, "Адрес");
+        ValidationUtils.validateNotEmpty(address);
         ValidationUtils.validateLength(address, 200, "Адрес");
     }
 
