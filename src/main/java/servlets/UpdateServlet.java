@@ -59,7 +59,7 @@ public class UpdateServlet extends HttpServlet {
         String address = request.getParameter("address");
 
         try {
-            if (clientId != null && !clientId.isEmpty() && addressId != null && !addressId.isEmpty()) {
+            if (addressId != null && !addressId.isEmpty()) {
                 isUpdatingClientAndAddress = true;
                 updateBean.validateClient(clientName, clientType);
                 updateBean.validateAddress(ip, mac, model, address);

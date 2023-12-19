@@ -29,28 +29,30 @@ public class SelectBean {
         return list;
     }
 
+// можно сделать 1 стрим
     public List<ClientAddressDto> filterClients(String clientName, String address, String type) {
         System.out.println("Before filter - clientName: " + clientName + ", address: " + address + ", type: " + type);
 
         List<ClientAddressDto> allClients = findAll();
 
-        if (clientName != null && !clientName.trim().isEmpty()) {
             allClients = allClients.stream()
-                    .filter(client -> client.getClientName().toLowerCase().contains(clientName.toLowerCase()))
+                    .filter(client -> {
+                        if (clientName != null && !clientName.trim().isEmpty())
+                        return client.getClientName().toLowerCase().contains(clientName.toLowerCase());
+                        else return true;
+                    })
+                    .filter(client -> {
+                        if (address != null && !address.trim().isEmpty())
+                        return client.getClientAddress().toLowerCase().contains(address.toLowerCase());
+                        else return true;
+                    })
+                    .filter(client -> {
+                        if (type != null && !type.isEmpty())
+                            return client.getType().equals(type);
+                        else return true;
+                    })
                     .collect(Collectors.toList());
-        }
 
-        if (address != null && !address.trim().isEmpty()) {
-            allClients = allClients.stream()
-                    .filter(client -> client.getClientAddress().toLowerCase().contains(address.toLowerCase()))
-                    .collect(Collectors.toList());
-        }
-
-        if (type != null && !type.isEmpty()) {
-            allClients = allClients.stream()
-                    .filter(client -> client.getType().equals(type))
-                    .collect(Collectors.toList());
-        }
         System.out.println("After filter - filtered clients: " + allClients);
 
         return allClients;

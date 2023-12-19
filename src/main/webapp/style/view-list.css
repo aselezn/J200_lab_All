@@ -14,8 +14,8 @@
 
 .filter-form input[type="text"],
 .filter-form select {
-    flex: 1; /* Элементы займут все доступное пространство */
-    margin-right: 10px; /* Добавьте небольшой отступ справа */
+    flex: 1;
+    margin-right: 10px;
 }
 
 
@@ -89,21 +89,21 @@ table tr:hover {
 .action-menu {
     display: none;
     position: absolute;
-    background-color: #f9f9f9; /* Цвет фона для меню */
-    min-width: 160px; /* Минимальная ширина меню */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Тень для всплывающего эффекта */
-    z-index: 1; /* Убедитесь, что меню отображается поверх других элементов */
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 
 .action-menu a {
-    color: black; /* Цвет текста для ссылок */
-    padding: 12px 16px; /* Отступы внутри каждой ссылки */
-    text-decoration: none; /* Убрать подчеркивание текста */
-    display: block; /* Расположение ссылок в столбец */
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
 }
 
 .action-menu a:hover {
-    background-color: #f1f1f1; /* Цвет фона для ссылок при наведении */
+    background-color: #f1f1f1;
 }
 
 .menu-button,
