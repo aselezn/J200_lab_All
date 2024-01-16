@@ -14,12 +14,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Objects;
 
 @Getter
@@ -27,11 +30,13 @@ import java.util.Objects;
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "addresses")
 @NamedQueries({
         @NamedQuery(name="addresses.findAll", query = "SELECT t FROM AddressEntity t"),
         @NamedQuery(name="addresses.findById", query = "SELECT c FROM AddressEntity c WHERE c.id = :id")
 })
+@Builder
 public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,6 +65,7 @@ public class AddressEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "clientid", nullable = false)
+    @XmlTransient
     private ClientEntity client;
 
     @Override

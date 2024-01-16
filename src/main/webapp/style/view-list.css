@@ -120,7 +120,9 @@ table tr:hover {
     border-radius: 5px;
 }
 
-#search {
+#search,
+#searchDOM,
+#searchSAX {
     width: auto;
     color: #fff;
     margin: 5px 0;
@@ -136,4 +138,11 @@ table tr:hover {
     width: auto;
     display: inline-block;
 }
+
+.error-message {
+    color: red;
+    text-align: center;
+    font-size: 15px;
+}
+
 

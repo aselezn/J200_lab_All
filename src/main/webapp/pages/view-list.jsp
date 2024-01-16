@@ -8,6 +8,7 @@
 <body>
 
 <form action="view-list" method="post" accept-charset="UTF-8">
+
     <div>
         <label for="clientNameFilter">ФИО:</label>
         <input type="text" name="clientNameFilter" id="clientNameFilter">
@@ -24,7 +25,26 @@
 
         <button type="submit" id="search">Поиск</button>
     </div>
+
 </form>
+
+<div>
+    <form action="check-sax" method="post" accept-charset="UTF-8">
+        <label for="clientSAXFilter">SAX:</label>
+        <input type="text" name="clientSAXFilter" id="clientSAXFilter">
+        <button type="submit" id="searchSAX">Поиск</button>
+    </form>
+</div>
+
+<div>
+    <label for="clientDOMFilter">DOM:</label>
+    <input type="text" name="clientDOMFilter" id="clientDOMFilter">
+    <button type="submit" id="searchDOM">Поиск</button>
+</div>
+
+<h4 class="error-message">
+    ${requestScope.errorReason}
+</h4>
 
 <br><br>
 <a href="create" class="button" id="create">Создать клиента</a>

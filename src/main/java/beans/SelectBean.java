@@ -29,7 +29,6 @@ public class SelectBean {
         return list;
     }
 
-// можно сделать 1 стрим
     public List<ClientAddressDto> filterClients(String clientName, String address, String type) {
         System.out.println("Before filter - clientName: " + clientName + ", address: " + address + ", type: " + type);
 
