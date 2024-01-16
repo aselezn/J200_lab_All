@@ -12,12 +12,13 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,11 +31,13 @@ import java.util.Objects;
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "clients")
 @NamedQueries({
         @NamedQuery(name="clients.findAll", query = "SELECT c FROM ClientEntity c"),
         @NamedQuery(name="clients.findById", query = "SELECT c FROM ClientEntity c WHERE c.id = :id")
 })
+@Builder
 public class ClientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
